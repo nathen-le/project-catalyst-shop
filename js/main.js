@@ -8,11 +8,13 @@ window.removeItem = function(index) {
 
 window.checkout = async function() {
   try {
+    console.log('Sending cart:', cart);  // log cart
     const response = await fetch('/.netlify/functions/checkout', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(cart)
     });
+    console.log('Response:', response);
 
     if (response.ok) {
       alert("Checkout complete! Email sent.");
@@ -20,13 +22,16 @@ window.checkout = async function() {
       cart = [];
       renderCart();
     } else {
+      const text = await response.text();
+      console.error('Error response:', text);
       alert("Checkout failed. Please try again.");
     }
   } catch (err) {
-    console.error(err);
+    console.error('Fetch error:', err);
     alert("Something went wrong.");
   }
 };
+
 
 function updateCartCount() {
   const countEl = document.getElementById('cart-count');

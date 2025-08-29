@@ -1,9 +1,12 @@
 const fetch = require('node-fetch'); // Netlify includes this automatically
 
 exports.handler = async (event) => {
+  console.log('Checkout function triggered');
+  console.log('Event body:', event.body);
+
   try {
-    const cart = JSON.parse(event.body); // Get cart array from your checkout()
-    const webhookUrl = process.env.DISCORD_WEBHOOK_URL; // Add in Netlify
+    const cart = JSON.parse(event.body); // Get cart array from frontend
+    const webhookUrl = process.env.DISCORD_WEBHOOK_URL; // Set in Netlify dashboard
 
     // Format order info
     const itemsList = cart.map(item => `${item.name} ($${item.price.toFixed(2)})`).join(', ');
