@@ -82,229 +82,218 @@
       from { transform: rotate(0deg); }
       to { transform: rotate(360deg); }
     }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #0ff;
+      color: #000;
+      padding: 10px 20px;
+      border-radius: 6px;
+      opacity: 0;
+      transition: opacity 0.3s, transform 0.3s;
+      z-index: 9999;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(-10px);
+    }
   </style>
 </head>
 <body>
   <!-- Header -->
-<header class="header">
-  <a href="index.html" class="logo">
-    Catalyst<span>Shop</span>
-  </a>
-  <div class="search-bar">
-    <input type="text" placeholder="Search products...">
-    <button>🔍</button>
+  <header class="header">
+    <a href="index.html" class="logo">Catalyst<span>Shop</span></a>
+    <div class="search-bar">
+      <input type="text" placeholder="Search products...">
+      <button>🔍</button>
+    </div>
+    <div class="header-links">
+      <a href="about.html" class="about-link">About</a>
+      <a href="products.html" class="products-link">Products</a>
+      <a href="cart.html" class="cart-link">Cart (<span id="cart-count">0</span>)</a>
+    </div>
+  </header>
+
+  <!-- Cart Content -->
+  <main class="cart-page">
+    <h2>Your Shopping Cart</h2>
+    <div id="cart-items"></div>
+    <div class="cart-summary">
+      <h3>Total: $<span id="cart-total">0</span></h3>
+      <button class="btn" onclick="openModal()">Proceed to Checkout</button>
+    </div>
+  </main>
+
+  <!-- Checkout Modal -->
+  <div id="checkout-modal" class="modal-overlay">
+    <div class="modal">
+      <h3>Shipping Information</h3>
+      <input type="text" id="name" placeholder="Full Name">
+      <input type="text" id="location" placeholder="Location">
+      <button id="submit-btn" onclick="submitCheckout()">Submit</button>
+      <div id="spinner" class="spinner" style="display:none;"></div>
+      <div id="estimate" class="estimate"></div>
+      <button id="done-btn" class="btn" style="display:none;" onclick="finishCheckout()">Done</button>
+    </div>
   </div>
-  <div class="header-links">
-    <a href="about.html" class="about-link">About</a>
-    <a href="products.html" class="products-link">Products</a>
-    <a href="cart.html" class="cart-link">Cart (<span id="cart-count">0</span>)</a>
-  </div>
-</header>
 
-<!-- Cart Content -->
-<main class="cart-page">
-  <h2>Your Shopping Cart</h2>
-  <div id="cart-items"></div>
-  <div class="cart-summary">
-    <h3>Total: $<span id="cart-total">0</span></h3>
-    <button class="btn" onclick="openModal()">Proceed to Checkout</button>
-  </div>
-</main>
+  <script>
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-<!-- Modal section inside body -->
-<div id="checkout-modal" class="modal-overlay">
-  <div class="modal">
-    <h3>Shipping Information</h3>
-    <input type="text" id="name" placeholder="Full Name">
-    <input type="text" id="location" placeholder="Location">
-    <button id="submit-btn" onclick="submitCheckout()">Submit</button>
-    <div id="spinner" class="spinner" style="display:none;"></div>
-    <div id="estimate" class="estimate"></div>
-    <button id="done-btn" class="btn" style="display:none;" onclick="finishCheckout()">Done</button>
-  </div>
-</div>
+    // --- Cart functions ---
+    function updateCartCount() {
+      const countEl = document.getElementById('cart-count');
+      if (countEl) countEl.innerText = cart.length;
+    }
 
-<script>
-let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    function renderCart() {
+      const cartItemsDiv = document.getElementById('cart-items');
+      const cartTotalSpan = document.getElementById('cart-total');
+      if (!cartItemsDiv || !cartTotalSpan) return;
 
-// --- Cart functions ---
-window.removeItem = function(index) {
-  cart.splice(index, 1);
-  localStorage.setItem('cart', JSON.stringify(cart));
-  renderCart();
-}
+      updateCartCount();
 
-function updateCartCount() {
-  const countEl = document.getElementById('cart-count');
-  const cartLocal = JSON.parse(localStorage.getItem('cart')) || [];
-  if (countEl) countEl.innerText = cartLocal.length;
-}
+      if (cart.length === 0) {
+        cartItemsDiv.innerHTML = "<p>Your cart is empty.</p>";
+        cartTotalSpan.innerText = "0.00";
+      } else {
+        let total = 0;
+        cartItemsDiv.innerHTML = "";
+        cart.forEach((item, index) => {
+          total += item.price;
+          const div = document.createElement('div');
+          div.className = 'cart-item';
+          div.style.display = 'flex';
+          div.style.alignItems = 'center';
+          div.style.marginBottom = '10px';
+          div.innerHTML = `
+            <img src="${item.imgSrc}" alt="${item.name}" style="width:50px; height:50px; object-fit:cover; margin-right:10px; border-radius:6px;">
+            <span style="flex:1;">${item.name} - $${item.price.toFixed(2)}</span>
+            <button onclick="removeItem(${index})">Remove</button>
+          `;
+          cartItemsDiv.appendChild(div);
+        });
+        cartTotalSpan.innerText = total.toFixed(2);
+      }
+    }
 
-function renderCart() {
-  const cartItemsDiv = document.getElementById('cart-items');
-  const cartTotalSpan = document.getElementById('cart-total');
-  if (!cartItemsDiv || !cartTotalSpan) return;
+    window.removeItem = function(index) {
+      cart.splice(index, 1);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      renderCart();
+    }
 
-  updateCartCount();
+    window.addToCart = function(name, price, imgSrc) {
+      cart.push({name, price, imgSrc});
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateCartCount();
+      showToast(`${name} added to cart!`);
+    }
 
-  if (cart.length === 0) {
-    cartItemsDiv.innerHTML = "<p>Your cart is empty.</p>";
-    cartTotalSpan.innerText = "0.00";
-  } else {
-    let total = 0;
-    cartItemsDiv.innerHTML = "";
-    cart.forEach((item, index) => {
-      total += item.price;
-      const div = document.createElement('div');
-      div.className = 'cart-item';
-      div.style.display = 'flex';
-      div.style.alignItems = 'center';
-      div.style.marginBottom = '10px';
-      div.innerHTML = `
-        <img src="${item.imgSrc}" alt="${item.name}" style="width:50px; height:50px; object-fit:cover; margin-right:10px; border-radius:6px;">
-        <span style="flex:1;">${item.name} - $${item.price.toFixed(2)}</span>
-        <button onclick="removeItem(${index})">Remove</button>
-      `;
-      cartItemsDiv.appendChild(div);
+    function showToast(message) {
+      const existingToast = document.querySelector('.toast');
+      if (existingToast) existingToast.remove();
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.innerText = message;
+      document.body.appendChild(toast);
+      void toast.offsetWidth;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderCart();
+      updateCartCount();
     });
-    cartTotalSpan.innerText = total.toFixed(2);
-  }
-}
 
+    // --- Checkout modal ---
+    function openModal() {
+      if (cart.length === 0) {
+        showToast("Your cart is empty! Add items before checking out.");
+        return;
+      }
 
-// --- Add to Cart with image ---
-window.addToCart = function(name, price, imgSrc) {
-  cart.push({name, price, imgSrc});
-  localStorage.setItem('cart', JSON.stringify(cart));
-  updateCartCount();
-  showToast(`${name} added to cart!`);
-}
+      document.getElementById('checkout-modal').style.display = 'flex';
+      document.getElementById('estimate').textContent = '';
+      document.getElementById('spinner').style.display = 'none';
+      document.getElementById('done-btn').style.display = 'none';
+      document.getElementById('submit-btn').style.display = 'inline-block';
+      document.getElementById('name').disabled = false;
+      document.getElementById('location').disabled = false;
+    }
 
-// --- Render Cart with images ---
-function renderCart() {
-  const cartItemsDiv = document.getElementById('cart-items');
-  const cartTotalSpan = document.getElementById('cart-total');
-  if (!cartItemsDiv || !cartTotalSpan) return;
+    async function submitCheckout() {
+      const name = document.getElementById('name').value.trim();
+      const location = document.getElementById('location').value.trim();
+      const estimateDiv = document.getElementById('estimate');
+      const spinner = document.getElementById('spinner');
+      const submitBtn = document.getElementById('submit-btn');
 
-  updateCartCount();
+      if (!name || !location) {
+        estimateDiv.textContent = "Please enter both your name and location.";
+        return;
+      }
 
-  if (cart.length === 0) {
-    cartItemsDiv.innerHTML = "<p>Your cart is empty.</p>";
-    cartTotalSpan.innerText = "0.00";
-  } else {
-    let total = 0;
-    cartItemsDiv.innerHTML = "";
-    cart.forEach((item, index) => {
-      total += item.price;
-      const div = document.createElement('div');
-      div.className = 'cart-item';
-      div.style.display = 'flex';
-      div.style.alignItems = 'center';
-      div.style.marginBottom = '10px';
-      div.innerHTML = `
-        <img src="${item.imgSrc}" alt="${item.name}" style="width:50px; height:50px; object-fit:cover; margin-right:10px; border-radius:6px;">
-        <span style="flex:1;">${item.name} - $${item.price.toFixed(2)}</span>
-        <button onclick="removeItem(${index})">Remove</button>
-      `;
-      cartItemsDiv.appendChild(div);
+      spinner.style.display = 'block';
+      estimateDiv.textContent = 'Calculating delivery time...';
+      document.getElementById('name').disabled = true;
+      document.getElementById('location').disabled = true;
+      submitBtn.style.display = 'none';
+
+      setTimeout(async () => {
+        spinner.style.display = 'none';
+        const minutes = Math.floor(Math.random() * 16) + 5;
+        estimateDiv.textContent = `Thank you, ${name}! Estimated delivery: ${minutes} minute(s).`;
+        document.getElementById('done-btn').style.display = 'inline-block';
+
+        // Send cart to Netlify function
+        try {
+          const response = await fetch('/.netlify/functions/checkout', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(cart)
+          });
+          if (!response.ok) console.error('Checkout failed:', await response.text());
+        } catch (err) {
+          console.error('Checkout fetch error:', err);
+        }
+      }, 2000);
+    }
+
+    function finishCheckout() {
+      localStorage.removeItem('cart');
+      cart = [];
+      renderCart();
+      window.location.href = 'index.html';
+    }
+
+    // Close modal if clicking outside
+    document.getElementById('checkout-modal').addEventListener('click', function(e) {
+      if (e.target === this) this.style.display = 'none';
     });
-    cartTotalSpan.innerText = total.toFixed(2);
-  }
-}
 
-document.addEventListener('DOMContentLoaded', () => {
-  renderCart();
-  updateCartCount();
-});
+    // --- Search ---
+    const searchInput = document.querySelector('.search-bar input');
+    const searchButton = document.querySelector('.search-bar button');
 
-// --- Toast ---
-function showToast(message) {
-  const existingToast = document.querySelector('.toast');
-  if (existingToast) existingToast.remove();
+    function goToProductsPage() {
+      const query = searchInput.value.trim();
+      if (!query) return;
+      window.location.href = `products.html?search=${encodeURIComponent(query)}`;
+    }
 
-  const toast = document.createElement('div');
-  toast.className = 'toast';
-  toast.innerText = message;
-  document.body.appendChild(toast);
-  void toast.offsetWidth; 
-  toast.classList.add('show');
-  setTimeout(() => {
-    toast.classList.remove('show');
-    setTimeout(() => toast.remove(), 300);
-  }, 3000);
-}
-
-// --- Checkout modal functions ---
-function openModal() {
-  if (cart.length === 0) {
-    showToast("Your cart is empty! Add items before checking out.");
-    return; // stop function execution
-  }
-
-  document.getElementById('checkout-modal').style.display = 'flex';
-  document.getElementById('estimate').textContent = '';
-  document.getElementById('spinner').style.display = 'none';
-  document.getElementById('done-btn').style.display = 'none';
-  document.getElementById('submit-btn').style.display = 'inline-block';
-  document.getElementById('name').disabled = false;
-  document.getElementById('location').disabled = false;
-}
-
-
-function submitCheckout() {
-  const name = document.getElementById('name').value.trim();
-  const location = document.getElementById('location').value.trim();
-  const estimateDiv = document.getElementById('estimate');
-  const spinner = document.getElementById('spinner');
-  const submitBtn = document.getElementById('submit-btn');
-
-  if (!name || !location) {
-    estimateDiv.textContent = "Please enter both your name and location.";
-    return;
-  }
-
-  spinner.style.display = 'block';
-  estimateDiv.textContent = 'Calculating delivery time...';
-  document.getElementById('name').disabled = true;
-  document.getElementById('location').disabled = true;
-  submitBtn.style.display = 'none';
-
-  setTimeout(() => {
-    spinner.style.display = 'none';
-    const minutes = Math.floor(Math.random() * 16) + 5;
-    estimateDiv.textContent = `Thank you, ${name}! Estimated delivery: ${minutes} minute(s).`;
-    document.getElementById('done-btn').style.display = 'inline-block';
-  }, 2000);
-}
-
-function finishCheckout() {
-  localStorage.removeItem('cart');
-  cart = [];
-  renderCart();
-  window.location.href = 'index.html';
-}
-
-// Close modal on click outside
-document.getElementById('checkout-modal').addEventListener('click', function(e) {
-  if (e.target === this) this.style.display = 'none';
-});
-
-// --- Search redirect ---
-const searchInput = document.querySelector('.search-bar input');
-const searchButton = document.querySelector('.search-bar button');
-
-function goToProductsPage() {
-  const query = searchInput.value.trim();
-  if (!query) return;
-  window.location.href = `products.html?search=${encodeURIComponent(query)}`;
-}
-
-searchButton.addEventListener('click', goToProductsPage);
-searchInput.addEventListener('keyup', (e) => {
-  if (e.key === 'Enter') goToProductsPage();
-});
-</script>
-
-
+    searchButton.addEventListener('click', goToProductsPage);
+    searchInput.addEventListener('keyup', (e) => {
+      if (e.key === 'Enter') goToProductsPage();
+    });
+  </script>
 </body>
 </html>
