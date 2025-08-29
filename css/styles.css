@@ -236,3 +236,88 @@ footer {
   opacity: 1;
   transform: translateY(0);
 }
+/* ------------------- Mobile Responsive ------------------- */
+@media (max-width: 768px) {
+  /* Header stacks nicely */
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .search-bar {
+    width: 100%;
+    margin: 10px 0;
+  }
+
+  .header-links {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin: 10px 0;
+    flex-wrap: wrap;
+  }
+
+  /* Hero text scales down */
+  .hero {
+    padding: 60px 20px;
+  }
+  .hero h1 {
+    font-size: 2rem;
+  }
+  .btn {
+    padding: 8px 16px;
+  }
+
+  /* Panels stack vertically */
+  .panels {
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 10px;
+  }
+  .panel {
+    width: 90%;
+    max-width: 350px;
+    margin: 10px 0;
+  }
+
+  /* Product grid becomes single column on very small screens */
+  .product-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .product-card img {
+    height: 200px;
+  }
+
+  .cart-page {
+    padding: 10px;
+  }
+  .cart-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .cart-summary {
+    text-align: left;
+  }
+}
+
+/* Extra small devices (phones in portrait) */
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 1.5rem;
+  }
+  .panel h2 {
+    font-size: 1.2rem;
+  }
+  .product-card h3 {
+    font-size: 16px;
+  }
+  .search-bar input {
+    padding: 6px;
+  }
+  .search-bar button {
+    padding: 6px 10px;
+  }
+}
