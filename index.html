@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Catalyst Shop.</title>
+  <link rel="stylesheet" href="css/styles.css"/>
+  <script defer src="js/main.js"></script>
+</head>
+<body>
+  <!-- Header -->
+<header class="header">
+  <a href="index.html" class="logo">
+    Catalyst<span>Shop</span>
+  </a>
+  <div class="search-bar">
+    <input type="text" placeholder="Search products...">
+    <button>🔍</button>
+  </div>
+  <div class="header-links">
+    <a href="about.html" class="about-link">About</a>
+    <a href="products.html" class="products-link">Products</a>
+    <a href="cart.html" class="cart-link">Cart (<span id="cart-count">0</span>)</a>
+  </div>
+</header>
+
+<!-- Hero Banner -->
+<section class="hero">
+  <h1>Rebuilding the Future</h1>
+  <p>Essential tools for 2093 and beyond.</p>
+  <a href="products.html" class="btn">Shop Now</a>
+</section>
+
+<!-- Panels Section -->
+<section class="panels">
+  <div class="panel">
+    <h2>Survival Gear</h2>
+    <img src="assets/home/813uPuhWjdL._UF1000,1000_QL80_.jpg" alt="Survival Gear">
+    <a href="products.html">Shop Gear</a>
+  </div>
+  <div class="panel">
+    <h2>Energy Solutions</h2>
+    <img src="assets/home/khasm-keen-field-photo-700x479.jpg" alt="Energy Solutions">
+    <a href="products.html">Shop Energy</a>
+  </div>
+  <div class="panel">
+    <h2>Food & Water</h2>
+    <img src="assets/home/0000373_food-water-safety-travel-kit_550.jpeg" alt="Food Water">
+    <a href="products.html">Shop Essentials</a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <p>© 2093 Project Catalyst</p>
+</footer>
+
+<!-- Search redirect script -->
+<script>
+  const searchInput = document.querySelector('.search-bar input');
+  const searchButton = document.querySelector('.search-bar button');
+
+  function goToProductsPage() {
+    const query = searchInput.value.trim();
+    if (!query) return;
+    window.location.href = `products.html?search=${encodeURIComponent(query)}`;
+  }
+
+  searchButton.addEventListener('click', goToProductsPage);
+  searchInput.addEventListener('keyup', (e) => {
+    if (e.key === 'Enter') goToProductsPage();
+  });
+</script>
+
+</body>
+</html>

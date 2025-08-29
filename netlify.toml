@@ -1,0 +1,3 @@
+[build]
+  publish = "."         # This ensures Netlify serves index.html from project root
+  functions = "netlify/functions"  # This ensures Netlify picks up checkout.js

@@ -1,0 +1,238 @@
+/* Make footer stick to the bottom */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1; /* pushes footer to the bottom */
+}
+
+/* Existing styles below */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: #0a0f1c;
+  color: #fff;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(to right, #091921, #0b2b39);
+  padding: 10px 20px;
+}
+
+.logo {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+.logo span {
+  color: #0ff; /* neon cyan highlight */
+}
+.logo {
+  text-decoration: none;
+  color: inherit;
+}
+
+.search-bar {
+  display: flex;
+  flex: 1;
+  max-width: 500px;
+  margin: 0 20px;
+}
+.search-bar input {
+  flex: 1;
+  padding: 8px;
+  border: none;
+  border-radius: 5px 0 0 5px;
+}
+.search-bar button {
+  padding: 8px 15px;
+  border: none;
+  background: #0ff;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 0 5px 5px 0;
+}
+
+.header-links a {
+  margin-left: 15px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.hero {
+  text-align: center;
+  padding: 100px 20px;
+  background: linear-gradient(135deg, #1c1c3c, #093b3b);
+}
+.hero h1 {
+  font-size: 2.5em;
+  color: #0ff;
+}
+.btn {
+  display: inline-block;
+  background: #0ff;
+  color: #000;
+  padding: 10px 20px;
+  border-radius: 8px;
+  margin-top: 20px;
+  text-decoration: none;
+}
+
+.panels {
+  display: flex;
+  justify-content: space-around;
+  padding: 40px 20px;
+  flex-wrap: wrap;
+}
+.panel {
+  background: #1c2b3c;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  margin: 10px;
+  width: 300px;
+}
+.panel img {
+  max-width: 100%;
+  border-radius: 6px;
+}
+.panel h2 {
+  color: #0ff;
+}
+.panel a {
+  display: inline-block;
+  margin-top: 10px;
+  color: #0ff;
+  text-decoration: none;
+}
+
+footer {
+  background: #091921;
+  text-align: center;
+  padding: 10px;
+}
+.cart-page {
+  max-width: 700px;
+  margin: auto;
+  padding: 20px;
+}
+
+.cart-item {
+  background: #1c2b3c;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cart-item button {
+  background: #ff006e;
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cart-summary {
+  text-align: right;
+  margin-top: 20px;
+}
+.products-container {
+  padding: 40px;
+  background: #0c0f14; /* dark futuristic */
+  color: white;
+}
+
+.product-section {
+  margin-bottom: 60px;
+}
+
+.product-section h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #00f7ff;
+  padding-bottom: 10px;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.product-card {
+  background: #1a1f2b;
+  padding: 15px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+}
+
+.product-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.product-card h3 {
+  font-size: 18px;
+  margin: 10px 0 5px;
+}
+
+.product-card p {
+  font-size: 14px;
+  color: #bbb;
+  margin-bottom: 10px;
+}
+
+.product-card button {
+  background: #00f7ff;
+  color: #000;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.product-card button:hover {
+  background: #00d2dd;
+}
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #222;
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 9999;
+}
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}

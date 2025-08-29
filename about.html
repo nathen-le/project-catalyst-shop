@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About - Catalyst Supply Co.</title>
+  <link rel="stylesheet" href="css/styles.css"/>
+  <style>
+    /* About Page Styling */
+    .about-page {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px;
+      color: #fff;
+      font-family: Arial, sans-serif;
+    }
+
+    .about-page h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      color: #0ff;
+      margin-bottom: 40px;
+    }
+
+    .about-card {
+      display: flex;
+      flex-wrap: wrap;
+      background: #1c2b3c;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    .about-card img {
+      width: 100%;
+      max-width: 400px;
+      object-fit: cover;
+      flex: 1;
+    }
+
+    .about-content {
+      flex: 2;
+      padding: 20px;
+    }
+
+    .about-content h2 {
+      color: #0ff;
+      margin-bottom: 15px;
+    }
+
+    .about-content p {
+      line-height: 1.6;
+      font-size: 1.1rem;
+      color: #ddd;
+    }
+
+    /* Responsive */
+    @media(max-width: 768px) {
+      .about-card {
+        flex-direction: column;
+      }
+      .about-card img {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <a href="index.html" class="logo">
+      Catalyst<span>Shop</span>
+    </a>
+    <div class="search-bar">
+      <input type="text" placeholder="Search products...">
+      <button>🔍</button>
+    </div>
+    <div class="header-links">
+      <a href="about.html" class="about-link">About</a>
+      <a href="products.html" class="products-link">Products</a>
+      <a href="cart.html" class="cart-link">Cart (<span id="cart-count">0</span>)</a>
+    </div>
+  </header>
+
+  <!-- About Section -->
+  <main class="about-page">
+    <h1>About Project Catalyst</h1>
+
+    <div class="about-card">
+      <img src="assets/about/1000_F_236499584_4NEvC2I5J6iuLDcBheIHpNedouOxBZT5.jpg" alt="Who We Are">
+      <div class="about-content">
+        <h2>Who We Are</h2>
+        <p>Project Catalyst is dedicated to preparing you for the challenges of 2093 and beyond. We provide essential survival gear, sustainable energy solutions, and tools to keep you safe, fed, and hydrated.</p>
+      </div>
+    </div>
+
+    <div class="about-card">
+      <img src="assets/about/Horizon-in-flight-high-res.webp" alt="How We Deliver">
+      <div class="about-content">
+        <h2>How We Deliver</h2>
+        <p>All orders are processed quickly and shipped with care. Emergency kits and essential items are packaged securely to ensure they arrive intact. Our delivery times vary depending on your location, but we always prioritize safe and fast delivery.</p>
+      </div>
+    </div>
+
+    <div class="about-card">
+      <img src="assets/about/uploads1561977296216-FZDF_SciFi_27.jpg" alt="Our Mission">
+      <div class="about-content">
+        <h2>Our Mission</h2>
+        <p>We aim to empower individuals to thrive in any scenario. By combining innovation, sustainability, and practicality, we equip you with the tools and knowledge needed for self-reliance and resilience.</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2093 Project Catalyst</p>
+  </footer>
+
+  <!-- Search redirect script -->
+  <script>
+    const searchInput = document.querySelector('.search-bar input');
+    const searchButton = document.querySelector('.search-bar button');
+
+    function goToProductsPage() {
+      const query = searchInput.value.trim();
+      if (!query) return;
+      window.location.href = `products.html?search=${encodeURIComponent(query)}`;
+    }
+
+    searchButton.addEventListener('click', goToProductsPage);
+    searchInput.addEventListener('keyup', (e) => {
+      if (e.key === 'Enter') goToProductsPage();
+    });
+  </script>
+</body>
+</html>

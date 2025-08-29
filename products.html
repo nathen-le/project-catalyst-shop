@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Products - Catalyst Supply Co.</title>
+  <link rel="stylesheet" href="css/styles.css"/>
+</head>
+<body>
+  <!-- Header -->
+<header class="header">
+  <a href="index.html" class="logo">
+    Catalyst<span>Shop</span>
+  </a>
+  <div class="search-bar">
+    <input type="text" placeholder="Search products...">
+    <button>🔍</button>
+  </div>
+  <div class="header-links">
+    <a href="about.html" class="about-link">About</a>
+    <a href="products.html" class="products-link">Products</a>
+    <a href="cart.html" class="cart-link">Cart (<span id="cart-count">0</span>)</a>
+  </div>
+</header>
+
+<main class="products-container">
+
+  <!-- Section 1: Water & Hydration -->
+  <section class="product-section">
+    <h2>Water & Hydration</h2>
+    <div class="product-grid">
+      <div class="product-card">
+        <img src="assets/water+hydration/WaterTabs1-2.jpg" alt="Water Tabs">
+        <h3>Water Purification Tabs</h3>
+        <p>$12 - Stay hydrated anywhere.</p>
+        <button onclick="addToCart('Water Purification Tabs', 12, 'assets/water+hydration/WaterTabs1-2.jpg')">Buy Now</button>
+      </div>
+      <div class="product-card">
+        <img src="assets/water+hydration/712FBvWam4L._UF1000,1000_QL80_.jpg" alt="Filter Bottle">
+        <h3>Portable Filter Bottle</h3>
+        <p>$25 - Clean water on the go.</p>
+        <button onclick="addToCart('Portable Filter Bottle', 25, 'assets/water+hydration/712FBvWam4L._UF1000,1000_QL80_.jpg')">Buy Now</button>
+      </div>
+      <div class="product-card">
+        <img src="assets/water+hydration/COLLAPISBLE+CUP+-+1B.webp" alt="Collapsible Cup">
+        <h3>Collapsible Cup</h3>
+        <p>$8 - Compact and lightweight drinking cup.</p>
+        <button onclick="addToCart('Collapsible Cup', 8, 'assets/water+hydration/COLLAPISBLE+CUP+-+1B.webp')">Buy Now</button>
+      </div>
+      <div class="product-card">
+        <img src="assets/water+hydration/517ywlb1HoL._UF894,1000_QL80_.jpg" alt="Water Pouch">
+        <h3>Emergency Water Pouch</h3>
+        <p>$15 - Long-lasting hydration for emergencies.</p>
+        <button onclick="addToCart('Emergency Water Pouch', 15, 'assets/water+hydration/517ywlb1HoL._UF894,1000_QL80_.jpg')">Buy Now</button>
+      </div>
+      <div class="product-card">
+        <img src="assets/water+hydration/2051825801-Spry-2.webp" alt="Hydration Pack">
+        <h3>Hydration Pack</h3>
+        <p>$40 - Carry water hands-free for long treks.</p>
+        <button onclick="addToCart('Hydration Pack', 40, 'assets/water+hydration/2051825801-Spry-2.webp')">Buy Now</button>
+      </div>
+      <div class="product-card">
+        <img src="assets/water+hydration/VAAST-x-Joolca_Water_Tank_Faucet-Kit_1800x1800.webp" alt="Portable Faucet">
+        <h3>Portable Faucet</h3>
+        <p>$30 - Tap into safe water anywhere.</p>
+        <button onclick="addToCart('Portable Faucet', 30, 'assets/water+hydration/VAAST-x-Joolca_Water_Tank_Faucet-Kit_1800x1800.webp')">Buy Now</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: Solar & Energy -->
+  <section class="product-section">
+    <h2>Solar & Energy</h2>
+    <div class="product-grid">
+      <div class="product-card">
+        <img src="assets/solar+energy/38800mAh-Solar-Charger-Cell-Phone-iphone-SOLPOWBEN-Portable-Solar-Power-Bank-Dual-5V-USB-Ports-2-Led-Light-Flashlight-Battery-Pack-Outdoor-Camping-Hi_f186c0f3-60a7-464b-a03f-1b0bb66e863c.33ba963910b444829793b321d66d5e93.avif" alt="Solar Charger">
+        <h3>Compact Solar Charger</h3>
+        <p>$35 - Reliable energy off-grid.</p>
+        <button onclick="addToCart('Compact Solar Charger', 35, 'assets/solar+energy/38800mAh-Solar-Charger-Cell-Phone-iphone-SOLPOWBEN-Portable-Solar-Power-Bank-Dual-5V-USB-Ports-2-Led-Light-Flashlight-Battery-Pack-Outdoor-Camping-Hi_f186c0f3-60a7-464b-a03f-1b0bb66e863c.33ba963910b444829793b321d66d5e93.avif')">Buy Now</button>
+      </div>
+      <div class="product-card">
+        <img src="assets/solar+energy/img_product_L063T3.png" alt="Solar Lantern">
+        <h3>Solar Lantern</h3>
+        <p>$20 - Light up your space sustainably.</p>
+        <button onclick="addToCart('Solar Lantern', 20, 'assets/solar+energy/img_product_L063T3.png')">Buy Now</button>
+      </div>
+      <div class="product-card">
+        <img src="assets/solar+energy/B1790111_78161a19-f780-404a-9d1c-da49b8552e6f.webp" alt="Solar Battery">
+        <h3>Solar Battery Pack</h3>
+        <p>$50 - Power devices during outages.</p>
+        <button onclick="addToCart('Solar Battery Pack', 50, 'assets/solar+energy/B1790111_78161a19-f780-404a-9d1c-da49b8552e6f.webp')">Buy Now</button>
+      </div>
+      <div class="product-card">
+        <img src="assets/solar+energy/RedCMwithiPhone_480x480.webp" alt="Hand Crank Charger">
+        <h3>Hand Crank Charger</h3>
+        <p>$28 - Backup power anytime, anywhere.</p>
+        <button onclick="addToCart('Hand Crank Charger', 28, 'assets/solar+energy/RedCMwithiPhone_480x480.webp')">Buy Now</button>
+      </div>
+      <div class="product-card">
+        <img src="assets/solar+energy/61BtHHgXFGL.jpg" alt="Solar Panel Kit">
+        <h3>Mini Solar Panel Kit</h3>
+        <p>$60 - DIY solar energy for small setups.</p>
+        <button onclick="addToCart('Mini Solar Panel Kit', 60, 'assets/solar+energy/61BtHHgXFGL.jpg')">Buy Now</button>
+      </div>
+      <div class="product-card">
+        <img src="assets/solar+energy/Positive-Energy-Mini-Candle-STILL-in-Snow-White-2.jpg" alt="Energy Candle">
+        <h3>Energy Candle</h3>
+        <p>$10 - Eco-friendly light for emergencies.</p>
+        <button onclick="addToCart('Energy Candle', 10, 'assets/solar+energy/Positive-Energy-Mini-Candle-STILL-in-Snow-White-2.jpg')">Buy Now</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: Food & Agriculture -->
+  <section class="product-section">
+    <h2>Food & Agriculture</h2>
+    <div class="product-grid">
+      <div class="product-card">
+        <img src="assets/food+agriculture/Seed-Vault.webp" alt="Seed Kit">
+        <h3>Emergency Seed Kit</h3>
+        <p>$20 - Grow food anywhere.</p>
+        <button onclick="addToCart('Emergency Seed Kit', 20, 'assets/food+agriculture/Seed-Vault.webp')">Buy Now</button>
+      </div>
+      <div class="product-card">
+        <img src="assets/food+agriculture/Alaska-Fish-Emulsion-Fertilizer-Natural-Organic-Concentrate-5-1-1-1qt_848ee298-2b2a-4aab-a5a3-7e9240205d18.fc4acb8fe1ace7ba6c91ab2e7bb3e59e.webp" alt="Fish Fertilizer">
+        <h3>Organic Fish Fertilizer</h3>
+        <p>$15 - Boost plant growth naturally.</p>
+        <button onclick="addToCart('Organic Fish Fertilizer', 15, 'assets/food+agriculture/Alaska-Fish-Emulsion-Fertilizer-Natural-Organic-Concentrate-5-1-1-1qt_848ee298-2b2a-4aab-a5a3-7e9240205d18.fc4acb8fe1ace7ba6c91ab2e7bb3e59e.webp')">Buy Now</button>
+      </div>
+      <div class="product-card">
+        <img src="assets/food+agriculture/il_570xN.1833322068_cjxp.webp" alt="Garden Tools">
+        <h3>Compact Garden Tools</h3>
+        <p>$25 - Everything needed to grow your food.</p>
+        <button onclick="addToCart('Compact Garden Tools', 25, 'assets/food+agriculture/il_570xN.1833322068_cjxp.webp')">Buy Now</button>
+      </div>
+      <div class="product-card">
+        <img src="assets/food+agriculture/BTTR-3Microgreens-BundlePhoto-800px.jpg" alt="Microgreens Kit">
+        <h3>Microgreens Kit</h3>
+        <p>$18 - Quick-growing nutritious greens.</p>
+        <button onclick="addToCart('Microgreens Kit', 18, 'assets/food+agriculture/BTTR-3Microgreens-BundlePhoto-800px.jpg')">Buy Now</button>
+      </div>
+      <div class="product-card">
+        <img src="assets/food+agriculture/91Z6tHeclZL.jpg" alt="Soil Bag">
+        <h3>Emergency Soil Bag</h3>
+        <p>$12 - Perfect for small-scale gardening.</p>
+        <button onclick="addToCart('Emergency Soil Bag', 12, 'assets/food+agriculture/91Z6tHeclZL.jpg')">Buy Now</button>
+      </div>
+      <div class="product-card">
+        <img src="assets/food+agriculture/rsi-countertop-composters-rsi-mc-c9-combo-64_600.avif" alt="Compost Bin">
+        <h3>Portable Compost Bin</h3>
+        <p>$35 - Turn waste into plant food easily.</p>
+        <button onclick="addToCart('Portable Compost Bin', 35, 'assets/food+agriculture/rsi-countertop-composters-rsi-mc-c9-combo-64_600.avif')">Buy Now</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 4: Survival Gear -->
+  <section class="product-section">
+    <h2>Survival Gear</h2>
+    <div class="product-grid">
+      <div class="product-card">
+        <img src="assets/survivalgear/STMT81243_K1.jpg" alt="Multi-tool">
+        <h3>Multi-Tool Kit</h3>
+        <p>$30 - All-in-one tool for emergencies.</p>
+        <button onclick="addToCart('Multi-Tool Kit', 30, 'assets/survivalgear/STMT81243_K1.jpg')">Buy Now</button>
+      </div>
+      <div class="product-card">
+        <img src="assets/survivalgear/magnum-m-spec-survival-knife-02sc005.jpg" alt="Survival Knife">
+        <h3>Survival Knife</h3>
+        <p>$40 - Durable and reliable cutting tool.</p>
+        <button onclick="addToCart('Survival Knife', 40, 'assets/survivalgear/magnum-m-spec-survival-knife-02sc005.jpg')">Buy Now</button>
+      </div>
+      <div class="product-card">
+        <img src="assets/survivalgear/UCO_Fire_Starting_Kit_compact_fire_starter_for_emergency_kits_camping_and_off-grid_use.webp" alt="Fire Starter">
+        <h3>Fire Starter Kit</h3>
+        <p>$15 - Easily ignite fire anywhere.</p>
+        <button onclick="addToCart('Fire Starter Kit', 15, 'assets/survivalgear/UCO_Fire_Starting_Kit_compact_fire_starter_for_emergency_kits_camping_and_off-grid_use.webp')">Buy Now</button>
+      </div>
+      <div class="product-card">
+        <img src="assets/survivalgear/ET3683__77803.jpg" alt="Emergency Tent">
+        <h3>Emergency Tent</h3>
+        <p>$60 - Lightweight shelter for survival.</p>
+        <button onclick="addToCart('Emergency Tent', 60, 'assets/survivalgear/ET3683__77803.jpg')">Buy Now</button>
+      </div>
+      <div class="product-card">
+        <img src="assets/survivalgear/68-RR801B-Open-e1737145084739.webp" alt="First Aid Kit">
+        <h3>First Aid Kit</h3>
+        <p>$35 - Essential medical supplies for emergencies.</p>
+        <button onclick="addToCart('First Aid Kit', 35, 'assets/survivalgear/68-RR801B-Open-e1737145084739.webp')">Buy Now</button>
+      </div>
+      <div class="product-card">
+        <img src="assets/survivalgear/f32ce44b-b97b-4935-8162-5447b35a5add.9be7b774a3d346846367d4fa2acfe8a3.webp" alt="Survival Blanket">
+        <h3>Survival Blanket</h3>
+        <p>$12 - Stay warm in harsh conditions.</p>
+        <button onclick="addToCart('Survival Blanket', 12, 'assets/survivalgear/f32ce44b-b97b-4935-8162-5447b35a5add.9be7b774a3d346846367d4fa2acfe8a3.webp')">Buy Now</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>© 2093 Project Catalyst</p>
+</footer>
+<script defer src="js/main.js"></script>
+</body>
+</html>
