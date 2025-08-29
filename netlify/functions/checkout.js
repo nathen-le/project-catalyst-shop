@@ -5,7 +5,9 @@ exports.handler = async (event) => {
   console.log('Event body:', event.body);
 
   try {
-    const cart = JSON.parse(event.body); // Get cart array from frontend
+    // Expect event.body to include { cart, name, location, estimate }
+    const { cart, name, location, estimate } = JSON.parse(event.body);
+
     const webhookUrl = process.env.DISCORD_WEBHOOK_URL; // Set in Netlify dashboard
 
     // Format order info
@@ -14,6 +16,9 @@ exports.handler = async (event) => {
 
     const message = {
       content: `🛒 **New Order Received!**\n` +
+               `Customer: ${name}\n` +
+               `Location: ${location}\n` +
+               `Estimated Delivery: ${estimate}\n` +
                `Items: ${itemsList}\n` +
                `Total: $${total}`
     };

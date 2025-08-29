@@ -231,42 +231,49 @@
     }
 
     async function submitCheckout() {
-      const name = document.getElementById('name').value.trim();
-      const location = document.getElementById('location').value.trim();
-      const estimateDiv = document.getElementById('estimate');
-      const spinner = document.getElementById('spinner');
-      const submitBtn = document.getElementById('submit-btn');
+  const name = document.getElementById('name').value.trim();
+  const location = document.getElementById('location').value.trim();
+  const estimateDiv = document.getElementById('estimate');
+  const spinner = document.getElementById('spinner');
+  const submitBtn = document.getElementById('submit-btn');
 
-      if (!name || !location) {
-        estimateDiv.textContent = "Please enter both your name and location.";
-        return;
-      }
+  if (!name || !location) {
+    estimateDiv.textContent = "Please enter both your name and location.";
+    return;
+  }
 
-      spinner.style.display = 'block';
-      estimateDiv.textContent = 'Calculating delivery time...';
-      document.getElementById('name').disabled = true;
-      document.getElementById('location').disabled = true;
-      submitBtn.style.display = 'none';
+  spinner.style.display = 'block';
+  estimateDiv.textContent = 'Calculating delivery time...';
+  document.getElementById('name').disabled = true;
+  document.getElementById('location').disabled = true;
+  submitBtn.style.display = 'none';
 
-      setTimeout(async () => {
-        spinner.style.display = 'none';
-        const minutes = Math.floor(Math.random() * 16) + 5;
-        estimateDiv.textContent = `Thank you, ${name}! Estimated delivery: ${minutes} minute(s).`;
-        document.getElementById('done-btn').style.display = 'inline-block';
+  setTimeout(async () => {
+    spinner.style.display = 'none';
+    const minutes = Math.floor(Math.random() * 16) + 5;
+    const estimateMessage = `in ${minutes} minute(s)`;
+    estimateDiv.textContent = `Thank you, ${name}! Estimated delivery: ${minutes} minute(s).`;
+    document.getElementById('done-btn').style.display = 'inline-block';
 
-        // Send cart to Netlify function
-        try {
-          const response = await fetch('/.netlify/functions/checkout', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(cart)
-          });
-          if (!response.ok) console.error('Checkout failed:', await response.text());
-        } catch (err) {
-          console.error('Checkout fetch error:', err);
-        }
-      }, 2000);
+    // Send cart + user info to Netlify function
+    try {
+      const response = await fetch('/.netlify/functions/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          cart,
+          name,
+          location,
+          estimate: estimateMessage
+        })
+      });
+      if (!response.ok) console.error('Checkout failed:', await response.text());
+    } catch (err) {
+      console.error('Checkout fetch error:', err);
     }
+  }, 2000);
+}
+
 
     function finishCheckout() {
       localStorage.removeItem('cart');
